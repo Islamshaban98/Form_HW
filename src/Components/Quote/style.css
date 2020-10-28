@@ -1,19 +1,4 @@
 
-.quote{
-position: absolute;
-width: 28px;
-height: 117px;
-left: 82px;
-top: 280px;
-font-family: 'Gayathri';
-font-style: normal;
-font-weight: bold;
-font-size: 96px;
-line-height: 117px;
-display: flex;
-color: #00DAF7;
-
-}
 .parag{
 position: absolute;
 width: 473px;

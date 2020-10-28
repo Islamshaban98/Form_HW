@@ -23,6 +23,11 @@ export default class Form extends React.Component {
     }
     this.setState({ [name]: _value });
   };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    alert("You are submitting " + this.state.email);
+  };
   render() {
     const { email, password, repassword, checked } = this.state;
     return (
@@ -34,7 +39,7 @@ export default class Form extends React.Component {
             For the purpose of gamers regulation, your details are required.
           </p>
         </div>
-        <form className="inputs-div">
+        <form onSubmit={this.handleSubmit} className="inputs-div">
           <Input
             type="email"
             lable="Email address*"
@@ -66,11 +71,11 @@ export default class Form extends React.Component {
             type="checkbox"
             id="checked"
             name="checked"
-            label="I agree to terms & conditions"
+            label={["I agree to ", <a href="#">terms & conditions</a>]}
             checked={checked}
             handleChange={this.handleChange}
           />
-          <Button name="Register" title="Register Account" />
+          <Button name="Register" title="Register Account" type="submit" />
           <Or />
           <Button name="byGoogle" title="Register with Google" />
         </form>

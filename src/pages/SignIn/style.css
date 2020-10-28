@@ -1,8 +1,36 @@
+.outer-div{
+  display: flex;
+  flex-direction: row;
+}
 .signInForm {
   width: 50%;
   position: absolute;
   top: 0px;
   right: 0px;
+  display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+.righ {
+  width: 50%;
+  height: 1024px;
+}
+.quoteSymbol {
+  position: absolute;
+  width: 28px;
+  height: 117px;
+  left: 82px;
+  top: 280px;
+  font-family: "Gayathri";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 96px;
+  line-height: 117px;
+  display: flex;
+  color: #BABABA;
+}
+.Quote2{
+  color: #696F79; 
 }
 .title-div {
   width: 411px;
@@ -39,7 +67,18 @@
   width: 411px;
   height: 91px;
 }
-span {
-  text-decoration-line: underline;
-  color: #1565d8;
+
+.blueLogo {
+  position: absolute;
+  width: 439px;
+  height: 103px;
+  left: 80px;
+  top: 68px;
+}
+.Superscene {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  left: 300px;
+  top: 507px;
 }

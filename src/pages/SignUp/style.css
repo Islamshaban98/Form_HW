@@ -34,13 +34,17 @@
   color: #8692a6;
   padding-top: 10px;
 }
-.group{
+a {
+  text-decoration-line: underline;
+  color: #1565d8;
+}
+.group {
   position: absolute;
   right: 28.88%;
   left: 66.95%;
   top: 20.7%;
   bottom: 73.83%;
-  }
+}
 .form {
   position: absolute;
   right: 0px;
@@ -73,4 +77,18 @@
   height: 120.18px;
   left: -10px;
   top: 896px;
+}
+.quote {
+  position: absolute;
+  width: 28px;
+  height: 117px;
+  left: 82px;
+  top: 280px;
+  font-family: "Gayathri";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 96px;
+  line-height: 117px;
+  display: flex;
+  color: #00daf7;
 }

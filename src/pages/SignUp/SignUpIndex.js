@@ -9,6 +9,7 @@ import whiteLogo from "../../assets/whiteLogo.png";
 import Form from "./Form";
 import Quote from "../../Components/Quote";
 import Logo from "../../Components/Logo";
+import Twoquote from "../../Components/Twoquote";
 
 export default function SignUpIndex() {
   return (
@@ -17,6 +18,7 @@ export default function SignUpIndex() {
         <div className="layer">
           <Logo logo={whiteLogo} />
           <img className="group" src={group} alt="" />
+          <Twoquote className="quote" />
           <Quote />
         </div>
         <img className="vector" src={vector} alt="" />
