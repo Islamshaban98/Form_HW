@@ -1,0 +1,35 @@
+
+.quote{
+position: absolute;
+width: 28px;
+height: 117px;
+left: 82px;
+top: 280px;
+font-family: 'Gayathri';
+font-style: normal;
+font-weight: bold;
+font-size: 96px;
+line-height: 117px;
+display: flex;
+color: #00DAF7;
+
+}
+.parag{
+position: absolute;
+width: 473px;
+height: 164px;
+left: 82px;
+top: 351px;
+font-family: Inter;
+font-size: 20px;
+line-height: 38px;
+color: #FFFFFF;
+}
+.writer{
+position: absolute;
+left: 82px;
+top: 574px;
+font-family: Inter;
+font-size: 20px;
+color: #FFFFFF;
+}

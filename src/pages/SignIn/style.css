@@ -1,0 +1,45 @@
+.signInForm {
+  width: 50%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.title-div {
+  width: 411px;
+  height: 91px;
+  text-align: center;
+  margin-top: 100px;
+}
+.component {
+  width: 430px;
+  height: 597px;
+  margin-top: 40px;
+}
+.h1Text {
+  font-family: Inter;
+  font-weight: bold;
+  font-size: 42px;
+  line-height: 51px;
+  color: #000000;
+}
+.pText {
+  font-family: Inter;
+  font-size: 18px;
+  line-height: 28px;
+  color: #8692a6;
+  padding: 10px;
+}
+.loginText {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #696f79;
+  text-align: center;
+  width: 411px;
+  height: 91px;
+}
+span {
+  text-decoration-line: underline;
+  color: #1565d8;
+}
