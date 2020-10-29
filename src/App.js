@@ -7,7 +7,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <SignUpIndex />
+        <SignInIndex />
+        {/* <SignUpIndex /> */}
       </div>
     );
   }

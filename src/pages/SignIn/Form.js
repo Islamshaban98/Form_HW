@@ -6,7 +6,7 @@ import Orgroup from "../../Components/Orgroup";
 import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
-import SignUpIndex from "../SignUp/SignUpIndex";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 export default class Form extends React.Component {
   state = {
@@ -14,6 +14,7 @@ export default class Form extends React.Component {
     password: "",
     checked1: "",
     checked2: "",
+    passwordShown: false,
   };
 
   handleChange = (e) => {
@@ -35,8 +36,12 @@ export default class Form extends React.Component {
     alert("You are submitting " + this.state.email);
   };
 
+  togglePasswordVisiblity = () => {
+    const { passwordShown } = this.state;
+    this.setState({ passwordShown: passwordShown ? false : true });
+  };
   render() {
-    const { email, password, checked1, checked2 } = this.state;
+    const { email, password, checked1, checked2, passwordShown } = this.state;
     return (
       <div className="signInForm">
         <div className="title-div">
@@ -52,18 +57,23 @@ export default class Form extends React.Component {
               name="email"
               id="Email"
               lable="Your email"
-              handleChange={this.handleChange}
+              handleChange={(e) => {
+                this.handleChange(e);
+              }}
               placeholder="Write your email"
             />
             <Input
               value={password}
               id="pass"
               name="password"
-              type="password"
+              type={passwordShown ? "text" : "password"}
               handleChange={this.handleChange}
               lable="Choose a password"
               placeholder="Write your password"
+              toggleShow={this.togglePasswordVisiblity}
             />
+            <PasswordStrengthBar password={password} />
+
             <Checkbox
               type="checkbox"
               label={["I agree to ", <a href="#">terms & conditions</a>]}
@@ -78,7 +88,9 @@ export default class Form extends React.Component {
               handleChange={this.handleChange}
               checked={checked2}
             />
-            <Button name="Register" title="Sign up for free" type="submit" />
+            <div className="signup-button-div">
+              <Button name="Register" title="Sign up for free" type="submit" />
+            </div>
           </form>
         </div>
         <div className="loginText">

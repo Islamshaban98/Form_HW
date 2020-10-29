@@ -1,6 +1,8 @@
 .input_div {
   display: flex;
   flex-direction: column;
+  position: relative;
+
 }
 .label{
   font-family: Inter;
@@ -18,4 +20,14 @@
   border-radius: 6px;
   padding-left: 20px;
   outline: none;
+}
+.eye{
+position: absolute;
+left: 370px;
+top:90px;
+z-index: 1;
+
+}
+.hiddenSvg{
+  display:none 
 }

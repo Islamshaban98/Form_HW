@@ -19,7 +19,7 @@ export default function SignUpIndex() {
           <Logo logo={whiteLogo} />
           <img className="group" src={group} alt="" />
           <Twoquote className="quote" />
-          <Quote />
+          <Quote className="Quote1" />
         </div>
         <img className="vector" src={vector} alt="" />
         <img className="circle" src={circle} alt="" />

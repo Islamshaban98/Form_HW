@@ -4,12 +4,11 @@
   border-radius: 6px;
   text-align: center;
   font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
   font-size: 16px;
   border: none;
   outline: none;
   cursor: pointer;
+  background-color: aqua;
 }
 .button.register {
   background: #1565d8;
@@ -33,5 +32,6 @@
   top: 50px;
 }
 .hidden {
-  visibility: hidden;
+  display:none 
+
 }

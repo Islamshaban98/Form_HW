@@ -1,4 +1,4 @@
-.outer-div{
+.outer-div {
   display: flex;
   flex-direction: row;
 }
@@ -8,8 +8,8 @@
   top: 0px;
   right: 0px;
   display: flex;
- flex-direction: column;
- align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
 .righ {
   width: 50%;
@@ -27,10 +27,10 @@
   font-size: 96px;
   line-height: 117px;
   display: flex;
-  color: #BABABA;
+  color: #bababa;
 }
-.Quote2{
-  color: #696F79; 
+.Quote2 {
+  color: #696f79;
 }
 .title-div {
   width: 411px;
@@ -61,7 +61,7 @@
   font-family: Inter;
   font-weight: 500;
   font-size: 16px;
-  line-height: 19px;
+  margin-top: 30px;
   color: #696f79;
   text-align: center;
   width: 411px;
@@ -81,4 +81,8 @@
   height: 400px;
   left: 300px;
   top: 507px;
+}
+.signup-button-div
+{
+margin-top: 40px;
 }

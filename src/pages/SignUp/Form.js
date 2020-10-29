@@ -6,6 +6,7 @@ import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import Or from "../../Components/Orgroup";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 export default class Form extends React.Component {
   state = {
@@ -13,6 +14,8 @@ export default class Form extends React.Component {
     password: "",
     repassword: "",
     checked: "",
+    passwordShown: false,
+    repasswordShown: false,
   };
 
   handleChange = (e) => {
@@ -28,8 +31,23 @@ export default class Form extends React.Component {
     event.preventDefault();
     alert("You are submitting " + this.state.email);
   };
+  togglePasswordVisiblity = () => {
+    const { passwordShown } = this.state;
+    this.setState({ passwordShown: passwordShown ? false : true });
+  };
+  togglerePasswordVisiblity = () => {
+    const { repasswordShown } = this.state;
+    this.setState({ repasswordShown: repasswordShown ? false : true });
+  };
   render() {
-    const { email, password, repassword, checked } = this.state;
+    const {
+      email,
+      password,
+      repassword,
+      checked,
+      passwordShown,
+      repasswordShown,
+    } = this.state;
     return (
       <div className="form">
         <Back />
@@ -50,23 +68,27 @@ export default class Form extends React.Component {
             value={email}
           />
           <Input
-            type="password"
+            type={passwordShown ? "text" : "password"}
             lable="Create password*"
             placeholder="Password"
             id="password"
             name="password"
             handleChange={this.handleChange}
             value={password}
+            toggleShow={this.togglePasswordVisiblity}
           />
+          <PasswordStrengthBar password={password} />
           <Input
-            type="password"
+            type={repasswordShown ? "text" : "password"}
             lable="Repeat password*"
             placeholder="Repeat password"
             id="repassword"
             name="repassword"
             handleChange={this.handleChange}
             value={repassword}
+            toggleShow={this.togglerePasswordVisiblity}
           />
+          <PasswordStrengthBar password={repassword} />
           <Checkbox
             type="checkbox"
             id="checked"
@@ -75,9 +97,15 @@ export default class Form extends React.Component {
             checked={checked}
             handleChange={this.handleChange}
           />
-          <Button name="Register" title="Register Account" type="submit" />
-          <Or />
-          <Button name="byGoogle" title="Register with Google" />
+          <div className="register-button-div">
+            <Button name="Register" title="Register Account" type="submit" />
+            <Or />
+            <Button
+              name="byGoogle"
+              title="Register with Google"
+              type="submit"
+            />
+          </div>
         </form>
       </div>
     );

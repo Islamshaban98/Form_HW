@@ -8,7 +8,7 @@
   height: 1024px;
   left: 0px;
   top: 0px;
-  background: url(Rectangle.png) no-repeat;
+  background: url("../../assets/Rectangle.png") no-repeat;
   background-size: cover;
 }
 .layer {
@@ -59,7 +59,7 @@ a {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 190px;
+  margin-top: 150px;
 }
 .inputs-div {
   display: flex;
@@ -92,3 +92,10 @@ a {
   display: flex;
   color: #00daf7;
 }
+.register-button-div{
+  margin-top: 40px;
+}
+.Quote1{
+ color: #FFFFFF;
+}
+
