@@ -6,7 +6,7 @@ import Orgroup from "../../Components/Orgroup";
 import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
-import PasswordStrengthBar from "react-password-strength-bar";
+import { Link } from "react-router-dom";
 
 export default class Form extends React.Component {
   state = {
@@ -72,11 +72,9 @@ export default class Form extends React.Component {
               placeholder="Write your password"
               toggleShow={this.togglePasswordVisiblity}
             />
-            <PasswordStrengthBar password={password} />
-
             <Checkbox
               type="checkbox"
-              label={["I agree to ", <a href="#">terms & conditions</a>]}
+              label={["I agree to ", <Link to="#">terms & conditions</Link>]}
               name="checked1"
               handleChange={this.handleChange}
               checked={checked1}
@@ -89,12 +87,12 @@ export default class Form extends React.Component {
               checked={checked2}
             />
             <div className="signup-button-div">
-              <Button name="Register" title="Sign up for free" type="submit" />
+              <Button name="Register" title="Login" type="submit" />
             </div>
           </form>
         </div>
-        <div className="loginText">
-          Do you already have an account? <a href="#">Log in</a>
+        <div className="RegisterText">
+          Don't have an account? <Link to="/"> Register</Link>
         </div>
       </div>
     );

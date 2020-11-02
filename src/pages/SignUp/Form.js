@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import "./style.css";
 import Back from "../../Components/Back";
 import Input from "../../Components/Input";
@@ -50,7 +52,10 @@ export default class Form extends React.Component {
     } = this.state;
     return (
       <div className="form">
-        <Back />
+        <Link to="/SignInIndex">
+          <Back />
+        </Link>
+
         <div className="text_div">
           <h1 className="h1">Register Individual Account!</h1>
           <p className="p">
@@ -93,7 +98,7 @@ export default class Form extends React.Component {
             type="checkbox"
             id="checked"
             name="checked"
-            label={["I agree to ", <a href="#">terms & conditions</a>]}
+            label={["I agree to ", <Link to="">terms & conditions</Link>]}
             checked={checked}
             handleChange={this.handleChange}
           />
@@ -105,6 +110,10 @@ export default class Form extends React.Component {
               title="Register with Google"
               type="submit"
             />
+            <div className="LoginText">
+              Do you already have an account?{" "}
+              <Link to="/SignInIndex"> Log in</Link>
+            </div>
           </div>
         </form>
       </div>
