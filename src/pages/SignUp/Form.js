@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 import "./style.css";
 import Back from "../../Components/Back";
@@ -8,7 +10,6 @@ import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import Or from "../../Components/Orgroup";
-import PasswordStrengthBar from "react-password-strength-bar";
 
 export default class Form extends React.Component {
   state = {
@@ -18,6 +19,11 @@ export default class Form extends React.Component {
     checked: "",
     passwordShown: false,
     repasswordShown: false,
+    errors: {
+      email: "",
+      password: "",
+      repassword: "",
+    },
   };
 
   handleChange = (e) => {
@@ -31,7 +37,27 @@ export default class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    alert("You are submitting " + this.state.email);
+    const { email, password, repassword } = this.state;
+    let signUpSchema = yup.object().shape({
+      email: yup.string().email().required(),
+      password: yup.string().required(),
+      repassword: yup
+        .string()
+        .required()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
+    });
+    signUpSchema
+      .validate({ email, password, repassword }, { abortEarly: false })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        const errors = {};
+        err.inner.forEach(({ message, params }) => {
+          errors[params.path] = message;
+          this.setState({ errors });
+        });
+      });
   };
   togglePasswordVisiblity = () => {
     const { passwordShown } = this.state;
@@ -49,6 +75,7 @@ export default class Form extends React.Component {
       checked,
       passwordShown,
       repasswordShown,
+      errors,
     } = this.state;
     return (
       <div className="form">
@@ -71,6 +98,7 @@ export default class Form extends React.Component {
             name="email"
             handleChange={this.handleChange}
             value={email}
+            error={errors.email}
           />
           <Input
             type={passwordShown ? "text" : "password"}
@@ -81,6 +109,7 @@ export default class Form extends React.Component {
             handleChange={this.handleChange}
             value={password}
             toggleShow={this.togglePasswordVisiblity}
+            error={errors.password}
           />
           <PasswordStrengthBar password={password} />
           <Input
@@ -92,6 +121,7 @@ export default class Form extends React.Component {
             handleChange={this.handleChange}
             value={repassword}
             toggleShow={this.togglerePasswordVisiblity}
+            error={errors.repassword}
           />
           <PasswordStrengthBar password={repassword} />
           <Checkbox

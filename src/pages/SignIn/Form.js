@@ -1,5 +1,7 @@
 import React from "react";
 
+import * as yup from "yup";
+
 import "./style.css";
 import ListIcon from "../../Components/ListIcon";
 import Orgroup from "../../Components/Orgroup";
@@ -15,6 +17,7 @@ export default class Form extends React.Component {
     checked1: "",
     checked2: "",
     passwordShown: false,
+    errors: {},
   };
 
   handleChange = (e) => {
@@ -33,7 +36,25 @@ export default class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    alert("You are submitting " + this.state.email);
+    const { email, password } = this.state;
+
+    const signInSchema = yup.object().shape({
+      email: yup.string().email().required(),
+      password: yup.string().required(),
+    });
+    signInSchema
+      .validate({ email, password }, { abortEarly: false })
+      .then((data) => {
+        console.log("valid");
+        console.log(data);
+      })
+      .catch((err) => {
+        const errors = {};
+        err.inner.forEach(({ message, params }) => {
+          errors[params.path] = message;
+        });
+        this.setState({ errors });
+      });
   };
 
   togglePasswordVisiblity = () => {
@@ -41,7 +62,14 @@ export default class Form extends React.Component {
     this.setState({ passwordShown: passwordShown ? false : true });
   };
   render() {
-    const { email, password, checked1, checked2, passwordShown } = this.state;
+    const {
+      email,
+      password,
+      checked1,
+      checked2,
+      passwordShown,
+      errors,
+    } = this.state;
     return (
       <div className="signInForm">
         <div className="title-div">
@@ -61,6 +89,7 @@ export default class Form extends React.Component {
                 this.handleChange(e);
               }}
               placeholder="Write your email"
+              error={errors.email}
             />
             <Input
               value={password}
@@ -71,6 +100,7 @@ export default class Form extends React.Component {
               lable="Choose a password"
               placeholder="Write your password"
               toggleShow={this.togglePasswordVisiblity}
+              error={errors.password}
             />
             <Checkbox
               type="checkbox"

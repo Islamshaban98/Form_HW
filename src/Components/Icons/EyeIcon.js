@@ -3,7 +3,7 @@ import React from "react";
 export default function EyeIcon({ className }) {
   return (
     <svg
-      width="30"
+      width="24"
       height="24"
       viewBox="0 0 30 24"
       fill="none"

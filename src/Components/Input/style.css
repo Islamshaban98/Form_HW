@@ -31,3 +31,10 @@ z-index: 1;
 .hiddenSvg{
   display:none 
 }
+.error-text{
+  border-color: red;
+}
+.error-div{
+  color: red;
+  margin-top: 5px;
+}

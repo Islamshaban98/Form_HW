@@ -13,6 +13,7 @@ export default function Input(props) {
     value,
     handleChange,
     toggleShow,
+    error,
   } = props;
   return (
     <div className="input_div">
@@ -20,7 +21,7 @@ export default function Input(props) {
         {lable}
       </label>
       <input
-        className="input"
+        className={`input ${error && "error-text"}`}
         name={name}
         placeholder={placeholder}
         id={id}
@@ -35,6 +36,7 @@ export default function Input(props) {
           }`}
         />
       </div>
+      {error && <div className="error-div">{error}</div>}
     </div>
   );
 }
