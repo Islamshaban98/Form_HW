@@ -8,7 +8,8 @@ import blueLogo from "../../assets/blueLogo.png";
 import Superscene from "../../assets/superscene.png";
 import Twoquote from "../../Components/Twoquote";
 
-export default function SignInIndex() {
+export default function SignInIndex(props) {
+  const { handelLogin } = props;
   return (
     <div className="outer-div">
       <div className="righ">
@@ -17,8 +18,7 @@ export default function SignInIndex() {
         <Quote className="Quote2" />
         <img src={Superscene} alt="" className="Superscene" />
       </div>
-
-      <Form />
+      <Form handelLogin={handelLogin} />
     </div>
   );
 }

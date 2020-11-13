@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as yup from "yup";
+import axios from "axios";
 
 import "./style.css";
 import ListIcon from "../../Components/ListIcon";
@@ -8,9 +9,9 @@ import Orgroup from "../../Components/Orgroup";
 import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default class Form extends React.Component {
+class Form extends React.Component {
   state = {
     email: "",
     password: "",
@@ -18,6 +19,7 @@ export default class Form extends React.Component {
     checked2: "",
     passwordShown: false,
     errors: {},
+    error: "",
   };
 
   handleChange = (e) => {
@@ -36,7 +38,7 @@ export default class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = this.state;
+    const { email, password, error } = this.state;
 
     const signInSchema = yup.object().shape({
       email: yup.string().email().required(),
@@ -53,8 +55,25 @@ export default class Form extends React.Component {
         err.inner.forEach(({ message, params }) => {
           errors[params.path] = message;
         });
-        this.setState({ errors });
+        this.setState({ errors, error: "check the field above" });
       });
+    if (!error) {
+      axios
+        .post("https://fake-api-ahmed.herokuapp.com/v1/auth/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          // const user = res.data;
+          this.props.handelLogin();
+          this.props.history.push("/Home");
+        })
+        .catch((err) => {
+          console.log(err.response);
+          let error = err.response.data.error;
+          this.setState({ error });
+        });
+    }
   };
 
   togglePasswordVisiblity = () => {
@@ -69,6 +88,7 @@ export default class Form extends React.Component {
       checked2,
       passwordShown,
       errors,
+      error,
     } = this.state;
     return (
       <div className="signInForm">
@@ -124,7 +144,9 @@ export default class Form extends React.Component {
         <div className="RegisterText">
           Don't have an account? <Link to="/"> Register</Link>
         </div>
+        {error && <span>{error}</span>}
       </div>
     );
   }
 }
+export default withRouter(Form);

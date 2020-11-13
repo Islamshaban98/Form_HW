@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import * as yup from "yup";
 import PasswordStrengthBar from "react-password-strength-bar";
+import axios from "axios";
 
 import "./style.css";
 import Back from "../../Components/Back";
@@ -10,7 +10,7 @@ import Input from "../../Components/Input";
 import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import Or from "../../Components/Orgroup";
-
+import SignUpSchema, { fieldSchema } from "../SignUp/SignUpValidation";
 export default class Form extends React.Component {
   state = {
     email: "",
@@ -19,11 +19,8 @@ export default class Form extends React.Component {
     checked: "",
     passwordShown: false,
     repasswordShown: false,
-    errors: {
-      email: "",
-      password: "",
-      repassword: "",
-    },
+    errors: {},
+    error: "",
   };
 
   handleChange = (e) => {
@@ -32,32 +29,62 @@ export default class Form extends React.Component {
     if (name === "checked") {
       _value = checked;
     }
-    this.setState({ [name]: _value });
+    const validate = () => {
+      fieldSchema(name)
+        .validate(value)
+        .then(() => {
+          this.setState((prevState) => {
+            const { errors } = prevState;
+            return { errors: { ...errors, [name]: "" } };
+          });
+        })
+        .catch((err) => {
+          this.setState((prevState) => {
+            const { errors } = prevState;
+            return { errors: { ...errors, [name]: err.message } };
+          });
+        });
+    };
+    this.setState({ [name]: _value }, validate);
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { email, password, repassword } = this.state;
-    let signUpSchema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-      repassword: yup
-        .string()
-        .required()
-        .oneOf([yup.ref("password"), null], "Passwords must match"),
-    });
-    signUpSchema
-      .validate({ email, password, repassword }, { abortEarly: false })
-      .then((data) => {
-        console.log(data);
+  validateForm = (data) => {
+    SignUpSchema.validate(data, { abortEarly: false })
+      .then(() => {
+        this.setState({ errors: {}, error: "" });
       })
       .catch((err) => {
         const errors = {};
         err.inner.forEach(({ message, params }) => {
           errors[params.path] = message;
-          this.setState({ errors });
+          this.setState({ errors, error: "check the fields above" });
         });
       });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, password, repassword, error } = this.state;
+    this.validateForm({ email, password, repassword });
+    if (!error) {
+      //post data to api with axios
+      axios
+        .post("https://fake-api-ahmed.herokuapp.com/v1/auth/signup", {
+          email,
+          password,
+        })
+        .then((res) => {
+          const user = res.data;
+          console.log(user);
+        })
+        .catch((err) => {
+          console.log(err.response.data.error);
+          let error = err.response.data.error;
+          if (error.includes("duplicate")) {
+            error = "Email is already exist";
+          }
+          this.setState({ error });
+        });
+    }
   };
   togglePasswordVisiblity = () => {
     const { passwordShown } = this.state;
@@ -76,6 +103,7 @@ export default class Form extends React.Component {
       passwordShown,
       repasswordShown,
       errors,
+      error,
     } = this.state;
     return (
       <div className="form">
@@ -134,6 +162,7 @@ export default class Form extends React.Component {
           />
           <div className="register-button-div">
             <Button name="Register" title="Register Account" type="submit" />
+            {error && <span>{error}</span>}
             <Or />
             <Button
               name="byGoogle"
