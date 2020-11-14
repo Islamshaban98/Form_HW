@@ -1,15 +1,11 @@
 import React from "react";
 
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import SignUpIndex from "../src/pages/SignUp/SignUpIndex";
 import SignInIndex from "../src/pages/SignIn/SignInIndex";
 import Welcome from "../src/pages/Welcome";
+import PrivateRoute from "../src/Components/PrivateRoute";
 class App extends React.Component {
   state = {
     isAuthenticated: false,
@@ -31,15 +27,18 @@ class App extends React.Component {
               <SignInIndex handelLogin={this.handelLogin} />
             </Route>
             <Route exact path="/">
-              <SignUpIndex />
+              <SignUpIndex handelLogin={this.handelLogin} />
             </Route>
-            <Route exact path="/Home">
-              {isAuthenticated ? (
-                <Welcome handelLogout={this.handelLogout} />
-              ) : (
-                <Redirect to="/SignInIndex" />
-              )}
-            </Route>
+            <PrivateRoute isAuthenticated={isAuthenticated} exact path="/Home">
+              <Welcome handelLogout={this.handelLogout} />
+            </PrivateRoute>
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/SignInIndex"
+            >
+              <SignInIndex />
+            </PrivateRoute>
           </Switch>
         </div>
       </Router>

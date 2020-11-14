@@ -11,7 +11,7 @@ import Quote from "../../Components/Quote";
 import Logo from "../../Components/Logo";
 import Twoquote from "../../Components/Twoquote";
 
-export default function SignUpIndex() {
+export default function SignUpIndex({ handelLogin }) {
   return (
     <div className="index_div">
       <div className="left_div">
@@ -24,7 +24,7 @@ export default function SignUpIndex() {
         <img className="vector" src={vector} alt="" />
         <img className="circle" src={circle} alt="" />
       </div>
-      <Form />
+      <Form handelLogin={handelLogin} />
     </div>
   );
 }

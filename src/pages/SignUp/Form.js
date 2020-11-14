@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
 import PasswordStrengthBar from "react-password-strength-bar";
 import axios from "axios";
+import { Link, withRouter } from "react-router-dom";
 
 import "./style.css";
 import Back from "../../Components/Back";
@@ -11,7 +11,8 @@ import Checkbox from "../../Components/Checkbox";
 import Button from "../../Components/Button";
 import Or from "../../Components/Orgroup";
 import SignUpSchema, { fieldSchema } from "../SignUp/SignUpValidation";
-export default class Form extends React.Component {
+
+class Form extends React.Component {
   state = {
     email: "",
     password: "",
@@ -73,8 +74,8 @@ export default class Form extends React.Component {
           password,
         })
         .then((res) => {
-          const user = res.data;
-          console.log(user);
+          this.props.handelLogin();
+          this.props.history.push("/SignInIndex");
         })
         .catch((err) => {
           console.log(err.response.data.error);
@@ -179,3 +180,4 @@ export default class Form extends React.Component {
     );
   }
 }
+export default withRouter(Form);
